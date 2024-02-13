@@ -114,3 +114,76 @@ Fictional SQL database mimicking a credit union company
 - **longitude**: DOUBLE PRECISION - Longitude coordinate of the customer being audited.
 - **changed_on**: TIMESTAMP(6) - Timestamp of when the audit entry was made.
 
+# Database Objects Documentation
+
+## Views
+
+### customer_master
+- Provides information about customers along with their credit score details.
+- **Columns**:
+  - `id`: Customer ID.
+  - `first_name`: First name of the customer.
+  - `last_name`: Last name of the customer.
+  - `gender`: Gender of the customer.
+  - `email`: Email address of the customer.
+  - `phonenum`: Phone number of the customer.
+  - `city`: City where the customer resides.
+  - `state`: State where the customer resides.
+  - `latitude`: Latitude coordinate of the customer's location.
+  - `longitude`: Longitude coordinate of the customer's location.
+  - `credit_rating`: Credit rating of the customer.
+  - `score_range`: Credit score range of the customer.
+
+### loan_info_master
+- Provides information about loans along with the associated union branch.
+- **Columns**:
+  - `union_name`: Name of the union branch associated with the loan.
+  - `loan_type`: Type of loan.
+  - `principal`: Principal amount of the loan.
+  - `interest_apr`: Annual percentage rate of interest.
+  - `term_months`: Term of the loan in months.
+  - `start_date`: Date the loan was initiated.
+  - `maturity_date`: Date the loan matures.
+  - `monthly_payment`: Calculated monthly payment for the loan.
+
+### account_info_master
+- Provides information about accounts along with the associated union branch.
+- **Columns**:
+  - `union_name`: Name of the union branch associated with the account.
+  - `account_type`: Type of account.
+  - `current_balance`: Current balance of the account.
+
+## Triggers
+
+### branch_info_changes
+- Trigger to track changes in union branch information.
+- Fires before an update operation on the `union_branch` table.
+- Records changes in the `union_info_audit` table.
+
+### customer_info_changes
+- Trigger to track changes in customer information.
+- Fires before an update operation on the `customer` table.
+- Records changes in the `customer_info_audit` table.
+
+## Functions
+
+### log_branch_info_changes
+- Function to handle logging of changes in union branch information.
+
+### log_customer_info_changes
+- Function to handle logging of changes in customer information.
+
+## Procedures
+
+### assests_change
+- Procedure to change the assets value of a union branch.
+- Takes `branch_id` and `value` as parameters.
+
+### balance_change
+- Procedure to change the balance of an account.
+- Takes `cus_id`, `branch_id`, `acc_num`, and `value` as parameters.
+
+### transfer
+- Procedure to transfer money from one account to another.
+- Takes `depositer`, `recipient`, and `amount` as parameters.
+
